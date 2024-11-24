@@ -1,0 +1,4 @@
+Flask
+CS50
+Werkzeug
+Flask-Session

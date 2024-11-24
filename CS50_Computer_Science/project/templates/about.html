@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}Acerca de Nosotros{% endblock %}
+
+{% block content %}
+    <div class="text-center my-5">
+        <!-- Logo en grande -->
+        <img src="{{ url_for('static', filename='logo.webp') }}" alt="YustePickle Logo" width="200" height="200" class="mb-4">
+
+        <h2 class="mb-4">Acerca de YustePickle</h2>
+
+        <p class="lead">YustePickle es el club de Pickleball más dinámico y amigable de Valladolid. Fundado por Álvaro Yuste, nuestro objetivo es ofrecer a todos los amantes de este deporte un lugar donde mejorar sus habilidades, competir de manera amistosa y disfrutar de un ambiente deportivo saludable.</p>
+
+        <p>Desde nuestros inicios, hemos crecido rápidamente y nos hemos convertido en un punto de encuentro para jugadores de todas las edades y niveles. Ya seas un principiante que quiere conocer el deporte o un jugador experimentado que busca un desafío, ¡YustePickle es el lugar perfecto para ti!</p>
+
+        <p>En YustePickle creemos en la importancia de la comunidad y el deporte como herramientas para crear vínculos y mejorar el bienestar personal. Con tres pistas de última generación y torneos regulares, nuestro club está diseñado para que disfrutes del Pickleball al máximo.</p>
+
+        <h3 class="mt-4">¡Únete a nosotros hoy!</h3>
+    </div>
+{% endblock %}

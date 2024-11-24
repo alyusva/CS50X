@@ -1,0 +1,8 @@
+sort1 uses: bubble sort
+How do you know?: The time complexity of sort1 was significantly higher for the large sorted list, suggesting it uses bubble sort, known for its inefficiency with large sorted inputs.
+
+sort2 uses: merge sort
+How do you know?: The time complexity of sort2 was very fast for smaller inputs but significantly higher for the large sorted file, suggesting merge sort which is efficient for smaller lists but could have overhead for very large sorted lists.
+
+sort3 uses: selection sort
+How do you know?: The time complexity of sort3 was relatively fast for smaller inputs but significantly higher for the large sorted file, suggesting selection sort which has a consistent but not highly efficient performance for larger lists.

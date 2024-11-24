@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <title>Trivia!</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Trivia!</h1>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h2>Part 1: Multiple Choice</h2>
+            <hr>
+            <h3>What is the approximate ratio of people to sheep in New Zealand?</h3>
+            <button class="choice" onclick="checkAnswer(this, false)">6 people per 1 sheep</button>
+            <button class="choice" onclick="checkAnswer(this, false)">3 people per 1 sheep</button>
+            <button class="choice" onclick="checkAnswer(this, true)">1 person per 6 sheep</button>
+            <button class="choice" onclick="checkAnswer(this, false)">1 person per 3 sheep</button>
+            <button class="choice" onclick="checkAnswer(this, false)">1 person per 1 sheep</button>
+            <p id="multiple-choice-feedback"></p>
+        </div>
+
+        <div class="section">
+            <h2>Part 2: Free Response</h2>
+            <hr>
+            <h3>In which country is it illegal to own only one guinea pig, as a lone guinea pig might get lonely?</h3>
+            <input type="text" id="free-response">
+            <button onclick="checkFreeResponse()">Check Answer</button>
+            <p id="free-response-feedback"></p>
+        </div>
+    </div>
+
+    <script>
+        function checkAnswer(button, isCorrect) {
+            const feedback = document.getElementById('multiple-choice-feedback');
+            if (isCorrect) {
+                button.classList.add('correct');
+                feedback.textContent = 'Correct!';
+            } else {
+                button.classList.add('incorrect');
+                feedback.textContent = 'Incorrect';
+            }
+        }
+
+        function checkFreeResponse() {
+            const input = document.getElementById('free-response');
+            const feedback = document.getElementById('free-response-feedback');
+            const answer = input.value.trim().toLowerCase();
+
+            if (answer === 'switzerland') {
+                input.classList.add('correct');
+                feedback.textContent = 'Correct!';
+            } else {
+                input.classList.add('incorrect');
+                feedback.textContent = 'Incorrect';
+            }
+        }
+    </script>
+</body>
+</html>

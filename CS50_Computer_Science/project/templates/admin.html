@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block title %}Panel de Administración{% endblock %}
+
+{% block content %}
+    <h2>Panel de Administración</h2>
+
+    <h3>Añadir Pista</h3>
+    <form action="/admin" method="post">
+        <input type="text" name="court_name" placeholder="Nombre de la Pista" required>
+        <input type="time" name="available_from" placeholder="Disponible desde" required>
+        <input type="time" name="available_to" placeholder="Disponible hasta" required>
+        <button type="submit">Añadir Pista</button>
+    </form>
+
+    <h3>Pistas Disponibles</h3>
+    <ul>
+        {% for court in courts %}
+        <li>
+            <form action="/edit_court" method="post" style="display:inline;">
+                <input type="hidden" name="court_id" value="{{ court.id }}">
+                <input type="text" name="court_name" value="{{ court.court_name }}">
+                <input type="time" name="available_from" value="{{ court.available_from }}">
+                <input type="time" name="available_to" value="{{ court.available_to }}">
+                <button type="submit">Editar</button>
+            </form>
+
+            <form action="/delete_court" method="post" style="display:inline;">
+                <input type="hidden" name="court_id" value="{{ court.id }}">
+                <button type="submit">Eliminar</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Reservas de Todos los Usuarios</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Pista</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reservation in reservations %}
+            <tr>
+                <td>
+                    <form action="/edit_reservation" method="post" style="display:inline;">
+                        <input type="hidden" name="reservation_id" value="{{ reservation.id }}">
+                        <select name="user_id">
+                            {% for user in users %}
+                                <option value="{{ user.id }}" {% if user.id == reservation.user_id %}selected{% endif %}>
+                                    {{ user.username }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                </td>
+                <td>
+                        <select name="court_id">
+                            {% for court in courts %}
+                                <option value="{{ court.id }}" {% if court.id == reservation.court_id %}selected{% endif %}>
+                                    {{ court.court_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                </td>
+                <td>
+                        <input type="date" name="date" value="{{ reservation.date }}" required>
+                </td>
+                <td>
+                        <input type="time" name="time" value="{{ reservation.time }}" required>
+                </td>
+                <td>
+                        <button type="submit">Modificar</button>
+                    </form>
+                    <form action="/delete_reservation" method="post" style="display:inline;">
+                        <input type="hidden" name="reservation_id" value="{{ reservation.id }}">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

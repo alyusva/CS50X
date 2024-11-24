@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block title %}Reserva una Pista{% endblock %}
+
+{% block content %}
+    <h2>Reservar Pista</h2>
+    <form id="reservation-form" action="/reservations" method="post">
+        <label for="court">Selecciona una pista:</label>
+        <select name="court_id" id="court" class="form-select" required>
+            {% for court in courts %}
+                <option value="{{ court.id }}">{{ court.court_name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="date">Selecciona una fecha:</label>
+        <input type="date" name="date" id="date" class="form-control" required>
+
+        <label for="hour">Selecciona la hora:</label>
+        <div class="row">
+            <div class="col-md-6">
+                <select name="hour" id="hour" class="form-select" required>
+                    <option value="" disabled selected>Hora</option>
+                    {% for h in range(8, 22) %}
+                        <option value="{{ h }}">{{ '%02d' % h }}:00</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <select name="minute" id="minute" class="form-select" required>
+                    <option value="" disabled selected>Minuto</option>
+                    <option value="00">00</option>
+                    <option value="30">30</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3" disabled id="submit-btn">Reservar</button>
+    </form>
+
+    <!-- Modal de notificación -->
+    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="notificationModalLabel">Notificación de Reserva</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {{ message }}  <!-- Aquí se mostrará el mensaje desde Flask -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mostrar modal si hay un mensaje -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            {% if message %}
+                var myModal = new bootstrap.Modal(document.getElementById('notificationModal'));
+                myModal.show();
+            {% endif %}
+
+            // Deshabilitar el botón de envío si los campos no están completos
+            const hourSelect = document.getElementById('hour');
+            const minuteSelect = document.getElementById('minute');
+            const submitBtn = document.getElementById('submit-btn');
+
+            function checkForm() {
+                if (hourSelect.value && minuteSelect.value) {
+                    submitBtn.disabled = false;
+                } else {
+                    submitBtn.disabled = true;
+                }
+            }
+
+            hourSelect.addEventListener('change', checkForm);
+            minuteSelect.addEventListener('change', checkForm);
+        });
+    </script>
+{% endblock %}

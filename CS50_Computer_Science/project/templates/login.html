@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}Iniciar Sesión{% endblock %}
+
+{% block content %}
+    <h2>Iniciar Sesión</h2>
+    <form action="/login" method="post">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="username" placeholder="Usuario" type="text">
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" name="password" placeholder="Contraseña" type="password">
+        </div>
+        <button class="btn btn-primary" type="submit">Iniciar Sesión</button>
+    </form>
+{% endblock %}

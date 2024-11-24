@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}Historial de Reservas{% endblock %}
+
+{% block content %}
+    <h2>Historial de Reservas</h2>
+
+    {% if reservations %}
+    <table>
+        <thead>
+            <tr>
+                <th>Pista</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.court_name }}</td>
+                <td>{{ reservation.date }}</td>
+                <td>{{ reservation.time }}</td>
+                <td>
+                    <form action="/delete_reservation_user" method="post">
+                        <input type="hidden" name="reservation_id" value="{{ reservation.id }}">
+                        <button type="submit">Cancelar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No has hecho ninguna reserva aún.</p>
+    {% endif %}
+{% endblock %}
